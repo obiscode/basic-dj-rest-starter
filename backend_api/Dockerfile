@@ -11,8 +11,10 @@ RUN apt-get update && apt-get install -y netcat
 COPY ./requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt 
 
-COPY ./entrypoint.sh .
+COPY ./entrypoint.sh /usr/src/backend_api/entrypoint.sh
 RUN chmod +x /usr/src/backend_api/entrypoint.sh 
 
-# Copy the current directory contents into the container at /usr/src/backend_api
+# Copy the rest of the application code
 COPY . .
+
+ENTRYPOINT ["/usr/src/backend_api/entrypoint.sh"]

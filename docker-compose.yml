@@ -1,24 +1,24 @@
 services:
-    web:
-        build: ./backend_api
-        command: /usr/src/backend_api/entrypoint.sh python manage.py runserver 0.0.0.0:8080
-        volumes:
-            - ./backend_api:/usr/src/backend_api/
-            - ./backend_api/entrypoint.sh:/usr/src/backend_api/entrypoint.sh 
-        ports:
-            - "8080:8080"
-        env_file:
-            - ./.env.dev
-        depends_on: 
-            - db
-    db:
-        image: postgres:15.0-alpine
-        volumes:
-            - postgres_data:/var/lib/postgresql/data/
-        environment:
-            - POSTGRES_USER=postgresuser
-            - POSTGRES_PASSWORD=postgrespassword
-            - POSTGRES_DB=backendDb
+  web:
+    build: ./backend_api
+    command: python manage.py runserver 0.0.0.0:8080  # Just the command, entrypoint is handled by Dockerfile
+    volumes:
+      - ./backend_api:/usr/src/backend_api/
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./.env.dev
+    depends_on: 
+      - db
+
+  db:
+    image: postgres:15.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgresuser
+      - POSTGRES_PASSWORD=postgrespassword
+      - POSTGRES_DB=backendDb
 
 volumes:
-    postgres_data:
+  postgres_data:
