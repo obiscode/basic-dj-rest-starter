@@ -3,7 +3,7 @@ services:
     build: ./backend_api
     command: python manage.py runserver 0.0.0.0:8080  # Just the command, entrypoint is handled by Dockerfile
     volumes:
-      - ./backend_api:/usr/src/backend_api/
+      - ./backend_api/entrypoint.sh:/usr/src/backend_api/entrypoint.sh
     ports:
       - "8080:8080"
     env_file:
