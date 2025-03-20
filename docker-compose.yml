@@ -1,9 +1,10 @@
 services:
     web:
         build: ./backend_api
-        command: python manage.py runserver 0.0.0.0:8080
+        command: /usr/src/backend_api/entrypoint.sh python manage.py runserver 0.0.0.0:8080
         volumes:
             - ./backend_api:/usr/src/backend_api/
+            - ./backend_api/entrypoint.sh:/usr/src/backend_api/entrypoint.sh 
         ports:
             - "8080:8080"
         env_file:
